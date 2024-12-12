@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+    <title>Credit Scoring Result</title>
+  </head>
+  <body>
+    <h1>Credit Scoring Result</h1>
+
+    <p>
+      <strong>Prediction:</strong> {{ 'Approved' if prediction == 1 else
+      'Rejected' }}
+    </p>
+    <p><strong>Probability of Approval:</strong> {{ probability }}%</p>
+
+    <a href="/">Go Back</a>
+  </body>
+</html>

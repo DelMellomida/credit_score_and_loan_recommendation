@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Model Performance Metrics</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Credit Scoring Model Metrics</h1>
+
+    <div class="section">
+      <h2>Model Performance Metrics</h2>
+      <p><strong>Accuracy:</strong> {{ results['accuracy'] }}</p>
+      <p><strong>Precision (Weighted):</strong> {{ results['precision'] }}</p>
+      <p><strong>Recall (Weighted):</strong> {{ results['recall'] }}</p>
+    </div>
+
+    <div class="section">
+      <h2>Confusion Matrix</h2>
+      <table>
+        <tr>
+          <th>True Positive</th>
+          <th>False Positive</th>
+        </tr>
+        <tr>
+          <td>{{ results['conf_matrix'][0][0] }}</td>
+          <td>{{ results['conf_matrix'][0][1] }}</td>
+        </tr>
+        <tr>
+          <th>False Negative</th>
+          <th>True Negative</th>
+        </tr>
+        <tr>
+          <td>{{ results['conf_matrix'][1][0] }}</td>
+          <td>{{ results['conf_matrix'][1][1] }}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h2>Classification Report</h2>
+      <pre>{{ results['class_report'] }}</pre>
+    </div>
+
+    <div>
+      <a href="{{ url_for('index') }}">Back to Home</a>
+    </div>
+  </body>
+</html>

@@ -72,6 +72,10 @@ results = {
 def index():
     return render_template('index.html') 
 
+@app.route('/form')
+def form():
+    return render_template('predict_form.html') 
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -116,8 +120,8 @@ def predict():
         input_data_transformed = np.hstack([input_data_continuous, input_data_categorical])
 
         # Make prediction
-        prediction = model.predict(input_data_transformed)
-        prediction_probability = model.predict_proba(input_data_transformed)[0][1]
+        prediction = classifier.predict(input_data_transformed)
+        prediction_probability = classifier.predict_proba(input_data_transformed)[0][1]
 
         return render_template(
             'results.html',

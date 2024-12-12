@@ -29,11 +29,15 @@ for col in df.columns:
     else:  # Continuous variables
         df[col].fillna(df[col].mean(), inplace=True)
 
-# Step 3: Define target and features
+# Step 3: Discard columns with more than 95% missing values
+column_threshold = 0.95 * len(df)
+df = df.loc[:, df.isnull().sum() < column_threshold]
+
+# Step 4: Define target and features
 y = df['TARGET']
 X = df.drop(columns=['TARGET'])
 
-# Step 4: Standardization and encoding
+# Step 5: Standardization and encoding
 categorical_columns = X.select_dtypes(include=['object']).columns
 continuous_columns = X.select_dtypes(exclude=['object']).columns
 
@@ -63,15 +67,15 @@ results = {
     'class_report': class_report
 }
 
-# Route for the home page (index.html)
+# Home Route
 @app.route('/')
 def index():
-    return render_template('index.html')  # Render the default index page
+    return render_template('index.html') 
 
-# Route for the metrics page (metric.html)
+# Metric Route
 @app.route('/metric')
 def metric():
-    return render_template('metric.html', results=results)  # Render the metrics page
+    return render_template('metric.html', results=results)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -19,6 +19,29 @@
     <p><strong>Probability of Approval:</strong> {{ probability }}%</p>
     <p><strong>Credit Score:</strong> {{ credit_score }}</p>
 
+    {% if prediction == 0 %}
+    <h2>Loan Recommendations</h2>
+    {% if loan_recommendations %}
+    <ul>
+      {% for loan in loan_recommendations %}
+      <li>
+        <strong>Loan Name:</strong> {{ loan['loan_name'] }}<br />
+        <strong>Loan Type:</strong> {{ loan['loan_name'] }}<br />
+        <strong>Max Amount:</strong> ${{ loan['min_income'] * 5 }}<br />
+        <strong>Interest Rate:</strong> {{ loan['interest_rate'] }}%<br />
+        <strong>Max Term:</strong> {{ loan['max_term'] }} months<br />
+        <strong>Notes:</strong> {{ loan['notes'] }}<br />
+        <!-- Display DTI -->
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No loan recommendations available based on the provided data.</p>
+    {% endif %} {% endif %}
+
+    <strong>Debt-to-Income Ratio (DTI):</strong>
+    {{ dti | round(2) }}<br />
+
     <a href="/dashboard">Go Back</a>
   </body>
 </html>

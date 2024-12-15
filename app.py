@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from app.user_model import User
 from app.user_financial_model import UserFinancial
 from app import db
+from app.model_loan_recommendation import get_loan_recommendation
 
 # Initialize Flask app
 app = create_app()
@@ -218,11 +219,33 @@ def predict():
         credit_score = compute_credit_score(features)
         session['credit_score'] = credit_score
 
+        prediction = 1 if prediction_probability > 0.5 else 0
+
+        # Initialize loan_recommendations to be an empty list
+        loan_recommendations = []
+
+        # Call get_loan_recommendation to get the loan recommendations
+        loan_recommendations, error = get_loan_recommendation()
+
+        # If there was an error in getting loan recommendations (e.g., no eligible loans),
+        # loan_recommendations will be None, so you need to handle that case.
+        if error:
+            loan_recommendations = []
+
+        # Calculate the DTI (Debt-to-Income ratio)
+        monthly_income = float(session.get('monthly_income', 0))
+        monthly_debt_payment = float(session.get('monthly_debt_payment', 0))
+
+        dti = monthly_debt_payment / monthly_income if monthly_income > 0 else 0
+
+        # Pass the DTI to the template
         return render_template(
             'results.html',
-            prediction=int(prediction_probability > 0.5),
+            prediction=prediction,
             probability=round(prediction_probability * 100, 2),
-            credit_score=credit_score
+            credit_score=credit_score,
+            loan_recommendations=loan_recommendations,
+            dti=dti 
         )
 
     except Exception as e:
@@ -296,17 +319,20 @@ def basicForm():
     if request.method == 'POST':
         user_id = session['user_id']
         monthly_income = request.form['monthly_income']
-        debt_payment = request.form['monthly_debt_payment']
+        monthly_debt_payment = request.form['monthly_debt_payment']
 
         financial_info = UserFinancial.query.filter_by(user_id=user_id).first()
         if financial_info:
             financial_info.monthly_income = monthly_income
-            financial_info.monthly_debt_payment = debt_payment
+            financial_info.monthly_debt_payment = monthly_debt_payment
         else:
             financial_info = UserFinancial(user_id=user_id, 
                                            monthly_income=monthly_income, 
-                                           monthly_debt_payment=debt_payment)
+                                           monthly_debt_payment=monthly_debt_payment)
             db.session.add(financial_info)
+
+        session['monthly_income'] = monthly_income
+        session['monthly_debt_payment'] = monthly_debt_payment
 
         db.session.commit()
         flash("Financial information updated successfully!", 'success')

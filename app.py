@@ -154,6 +154,8 @@ def compute_credit_score(features):
 # Routes
 @app.route('/')
 def index():
+    if 'user_id' in session:
+        return render_template('dashboard.html')
     return render_template('index.html')
 
 @app.route('/form')
@@ -257,6 +259,9 @@ def metric():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:
+        return render_template('dashboard.html')
+
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
@@ -287,6 +292,9 @@ def login():
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    if 'user_id' in session:
+        return render_template('dashboard.html')
+    
     if request.method == 'POST':
         email = request.form['email']
         username = request.form['username']

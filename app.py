@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import joblib
 import pandas as pd
 import numpy as np
 from sklearn.metrics import accuracy_score, precision_score, recall_score, classification_report, confusion_matrix
-# import matplotlib.pyplot as plt
-# from sklearn.decomposition import PCA
-from app import create_app, db
-from app.routes import setup_routes
+from app import create_app
+from werkzeug.security import generate_password_hash, check_password_hash
+from app.user_model import User
+from app import db
 
 # Initialize Flask app
 app = create_app()
@@ -69,11 +69,121 @@ results = {
     'class_report': class_report
 }
 
-with app.app_context():
-    g.results = results
-    g.request = request
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-setup_routes(app)
+@app.route('/form')
+def form():
+    return render_template('predict_form.html') 
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    try:
+        features = [
+            float(request.form['DerogCnt']),
+            float(request.form['CollectCnt']),
+            float(request.form['BanruptcyInd']),
+            float(request.form['InqCnt06']),
+            float(request.form['InqTimeLast']),
+            float(request.form['InqFinanceCnt24']),
+            float(request.form['TLTimeFirst']),
+            float(request.form['TLTimeLast']),
+            float(request.form['TLCnt03']),
+            float(request.form['TLCnt12']),
+            float(request.form['TLCnt24']),
+            float(request.form['TLCnt']),
+            float(request.form['TLSum'].replace('$', '').replace(',', '')),
+            float(request.form['TLMaxSum'].replace('$', '').replace(',', '')),
+            float(request.form['TLSatCnt']),
+            float(request.form['TLDel60Cnt']),
+            float(request.form['TLBadCnt24']),
+            float(request.form['TL75UtilCnt']),
+            float(request.form['TL50UtilCnt']),
+            float(request.form['TLBalHCPct'].replace('%', '').replace(',', '')) / 100,
+            float(request.form['TLSatPct'].replace('%', '').replace(',', '')) / 100,
+            float(request.form['TLDel3060Cnt24']),
+            float(request.form['TLDel90Cnt24']),
+            float(request.form['TLDel60CntAll']),
+            float(request.form['TLOpenPct'].replace('%', '').replace(',', '')) / 100,
+            float(request.form['TLBadDerogCnt']),
+            float(request.form['TLDel60Cnt24']),
+            float(request.form['TLOpen24Pct'].replace('%', '').replace(',', '')) / 100
+        ]
+            
+        input_data = np.array(features).reshape(1, -1)
+        
+        input_data_continuous = scaler.transform(input_data[:, :len(continuous_columns)])
+        input_data_categorical = ohe.transform(input_data[:, len(continuous_columns):]).toarray()
+        input_data_transformed = np.hstack([input_data_continuous, input_data_categorical])
+
+        prediction = classifier.predict(input_data_transformed)
+        prediction_probability = classifier.predict_proba(input_data_transformed)[0][1]
+
+        return render_template(
+            'results.html',
+            prediction=int(prediction[0]),
+            probability=round(prediction_probability * 100, 2)
+        )
+    except Exception as e:
+        return f"An error occurred: {e}"
+
+@app.route('/metric')
+def metric():
+    return render_template('metric.html', results=results)
+
+from flask import render_template, request, redirect, url_for, flash, session
+from app import db
+from app.user_model import User
+from werkzeug.security import check_password_hash
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        
+        user = User.query.filter_by(email=email).first()
+        
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            flash("Login successful!", 'success')
+            return redirect(url_for('metric'))
+        else:
+            flash("Invalid email or password.", 'danger')
+            return redirect(url_for('login')) 
+
+    return render_template('login.html')
+
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        email = request.form['email']
+        username = request.form['username']
+        password = request.form['password']
+        confirm_password = request.form['confirm-password']
+
+        if password != confirm_password:
+            flash("Passwords do not match!", 'danger')
+            return redirect(url_for('signup'))
+
+        user = User.query.filter_by(email=email).first()
+        if user:
+            flash("Email already exists!", 'danger')
+            return redirect(url_for('signup'))
+
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
+
+        new_user = User(email=email, username=username, password=hashed_password)
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        flash("User created successfully!", 'success')
+        return redirect(url_for('login'))
+
+    return render_template('signup.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

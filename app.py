@@ -148,7 +148,7 @@ def login():
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
             flash("Login successful!", 'success')
-            return redirect(url_for('metric'))
+            return redirect(url_for('dashboard'))
         else:
             flash("Invalid email or password.", 'danger')
             return redirect(url_for('login')) 
@@ -184,6 +184,22 @@ def signup():
         return redirect(url_for('login'))
 
     return render_template('signup.html')
+
+from flask import session, redirect, url_for, flash
+
+@app.route('/dashboard')
+def dashboard():
+    if 'user_id' not in session:
+        flash("You must be logged in to access the dashboard.", 'danger')
+        return redirect(url_for('login'))
+
+    return render_template('dashboard.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    flash("You have been logged out successfully.", 'success')
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)

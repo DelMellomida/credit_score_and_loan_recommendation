@@ -1,11 +1,9 @@
-/* Reset some default browser styles */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body styling */
 body {
   font-family: "Arial", sans-serif;
   background-color: #f4f4f4;
@@ -18,7 +16,6 @@ body {
   padding: 20px;
 }
 
-/* Login form container */
 .login-form {
   background-color: white;
   padding: 40px;
@@ -29,14 +26,12 @@ body {
   text-align: center;
 }
 
-/* Form title */
 h2 {
   font-size: 2em;
   margin-bottom: 20px;
   color: #2c3e50;
 }
 
-/* Form elements styling */
 .form-group {
   margin-bottom: 20px;
   text-align: left;
@@ -50,7 +45,6 @@ label {
   color: #555;
 }
 
-/* Input fields */
 input[type="email"],
 input[type="password"],
 input[type="number"],
@@ -87,7 +81,7 @@ input[type="number"]:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Center items vertically */
+  justify-content: center;
   padding: 40px;
   min-height: 100vh;
   background-color: #f4f4f4;
@@ -111,7 +105,7 @@ input[type="number"]:focus {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px; /* Spacing between the buttons */
+  gap: 15px;
 }
 
 .dashboard-btn {
@@ -149,21 +143,21 @@ input[type="number"]:focus {
 .predict {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align to the top */
+  justify-content: flex-start;
   align-items: center;
-  height: 100%; /* Ensure it stretches vertically */
-  padding-top: 10px; /* Add some top padding to avoid elements sticking to the top */
+  height: 100%;
+  padding-top: 10px;
 }
 
 .result {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Align to the top */
+  justify-content: flex-start;
   align-items: center;
-  padding: 20px; /* Add some padding around the container */
-  max-width: 900px; /* Max width to make sure content doesn't stretch too wide */
+  padding: 20px;
+  max-width: 900px;
   width: 100%;
-  margin: 0 auto; /* Center the container horizontally */
+  margin: 0 auto;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -244,7 +238,6 @@ button.btn:hover {
   background-color: #2980b9;
 }
 
-/* Forgot password link */
 a.forgot-password {
   display: block;
   margin-top: 10px;
@@ -257,7 +250,6 @@ a.forgot-password:hover {
   text-decoration: underline;
 }
 
-/* Dashboard styling */
 .container {
   text-align: center;
 }
@@ -278,7 +270,6 @@ a.forgot-password:hover {
   background-color: #2980b9;
 }
 
-/* Form container for Credit Scoring Prediction */
 form {
   background-color: white;
   padding: 40px;
@@ -289,7 +280,6 @@ form {
   text-align: left;
 }
 
-/* Heading */
 h1 {
   font-size: 2.5em;
   margin-bottom: 30px;
@@ -297,7 +287,6 @@ h1 {
   text-align: center;
 }
 
-/* Form elements styling */
 label {
   display: block;
   font-size: 1.1em;
@@ -305,7 +294,6 @@ label {
   color: #555;
 }
 
-/* Input fields for Credit Scoring Prediction */
 input[type="number"] {
   width: 100%;
   padding: 12px;
@@ -323,7 +311,6 @@ input[type="number"]:focus {
   outline: none;
 }
 
-/* Submit button for Credit Scoring Prediction */
 input[type="submit"] {
   width: 100%;
   padding: 12px;
@@ -344,30 +331,24 @@ input[type="submit"]:active {
   background-color: #1f75a4;
 }
 
-/* Spacing between form fields */
 form br {
   margin-bottom: 10px;
 }
 
-/* Fix spacing and alignment for form */
 form label,
 form input {
   width: 100%;
 }
 
-/* Form fields margin to create space */
 form input[type="number"] {
   margin-bottom: 20px;
 }
 
-/* Margin for the first input field */
 form input[type="number"]:first-of-type {
   margin-top: 10px;
 }
 
-/* Responsive styling */
 @media (max-width: 768px) {
-  /* Login Form */
   .login-form {
     padding: 20px;
     width: 90%;
@@ -386,7 +367,6 @@ form input[type="number"]:first-of-type {
     font-size: 1.1em;
   }
 
-  /* Dashboard */
   .container {
     padding: 20px;
   }
@@ -396,7 +376,6 @@ form input[type="number"]:first-of-type {
     padding: 10px 15px;
   }
 
-  /* Credit Scoring Prediction Form */
   form {
     padding: 20px;
     width: 90%;

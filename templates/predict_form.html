@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Credit Scoring Form</title>
+    <title>Credit Scoring Prediction</title>
     <link
       rel="stylesheet"
       href="{{ url_for('static', filename='styles.css') }}"
@@ -17,7 +17,7 @@
         type="number"
         id="DerogCnt"
         name="DerogCnt"
-        value="-1"
+        value="0"
         required
       /><br /><br />
 
@@ -28,7 +28,7 @@
         type="number"
         id="CollectCnt"
         name="CollectCnt"
-        value="999"
+        value="0"
         required
       /><br /><br />
 
@@ -37,16 +37,9 @@
         type="number"
         id="BanruptcyInd"
         name="BanruptcyInd"
-        value="2"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="InqCnt06"
         >Number of Credit Inquiries in the Last 6 Months (InqCnt06):</label
@@ -55,7 +48,7 @@
         type="number"
         id="InqCnt06"
         name="InqCnt06"
-        value="999"
+        value="2"
         required
       /><br /><br />
 
@@ -66,16 +59,9 @@
         type="number"
         id="InqTimeLast"
         name="InqTimeLast"
-        value="1000"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="InqFinanceCnt24"
         >Number of Financing Inquiries in the Last 24 Months
@@ -85,16 +71,9 @@
         type="number"
         id="InqFinanceCnt24"
         name="InqFinanceCnt24"
-        value="-1"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="TLTimeFirst"
         >Months Since First Credit Account Opened (TLTimeFirst):</label
@@ -103,16 +82,9 @@
         type="number"
         id="TLTimeFirst"
         name="TLTimeFirst"
-        value="5000"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="135"
+        required
+      /><br /><br />
 
       <label for="TLTimeLast"
         >Months Since Last Credit Account Opened (TLTimeLast):</label
@@ -121,16 +93,9 @@
         type="number"
         id="TLTimeLast"
         name="TLTimeLast"
-        value="-100"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="11"
+        required
+      /><br /><br />
 
       <label for="TLCnt03"
         >Number of Accounts with 3 Delinquencies in the Last 24 Months
@@ -140,7 +105,7 @@
         type="number"
         id="TLCnt03"
         name="TLCnt03"
-        value="99999"
+        value="0"
         required
       /><br /><br />
 
@@ -152,7 +117,7 @@
         type="number"
         id="TLCnt12"
         name="TLCnt12"
-        value="99999"
+        value="1"
         required
       /><br /><br />
 
@@ -164,7 +129,7 @@
         type="number"
         id="TLCnt24"
         name="TLCnt24"
-        value="-999"
+        value="4"
         required
       /><br /><br />
 
@@ -173,7 +138,7 @@
         type="number"
         id="TLCnt"
         name="TLCnt"
-        value="0"
+        value="13"
         required
       /><br /><br />
 
@@ -182,7 +147,7 @@
         type="number"
         id="TLSum"
         name="TLSum"
-        value="0"
+        value="59919"
         required
       /><br /><br />
 
@@ -191,7 +156,7 @@
         type="number"
         id="TLMaxSum"
         name="TLMaxSum"
-        value="0"
+        value="96487"
         required
       /><br /><br />
 
@@ -202,7 +167,7 @@
         type="number"
         id="TLSatCnt"
         name="TLSatCnt"
-        value="0"
+        value="19"
         required
       /><br /><br />
 
@@ -213,16 +178,9 @@
         type="number"
         id="TLDel60Cnt"
         name="TLDel60Cnt"
-        value="-10"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="TLBadCnt24"
         >Number of Accounts with Serious Delinquencies in Last 24 Months
@@ -232,16 +190,9 @@
         type="number"
         id="TLBadCnt24"
         name="TLBadCnt24"
-        value="-1"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="TL75UtilCnt"
         >Number of Accounts with 75%+ Credit Utilization (TL75UtilCnt):</label
@@ -250,7 +201,7 @@
         type="number"
         id="TL75UtilCnt"
         name="TL75UtilCnt"
-        value="99999"
+        value="4"
         required
       /><br /><br />
 
@@ -261,7 +212,7 @@
         type="number"
         id="TL50UtilCnt"
         name="TL50UtilCnt"
-        value="-999"
+        value="5"
         required
       /><br /><br />
 
@@ -272,7 +223,8 @@
         type="number"
         id="TLBalHCPct"
         name="TLBalHCPct"
-        value="0"
+        value="0.62"
+        step="0.01"
         required
       /><br /><br />
 
@@ -283,7 +235,8 @@
         type="number"
         id="TLSatPct"
         name="TLSatPct"
-        value="0"
+        value="0.52"
+        step="0.01"
         required
       /><br /><br />
 
@@ -295,16 +248,9 @@
         type="number"
         id="TLDel3060Cnt24"
         name="TLDel3060Cnt24"
-        value="999999"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="3"
+        required
+      /><br /><br />
 
       <label for="TLDel90Cnt24"
         >Number of Accounts with 90+ Day Delinquencies in Last 24 Months
@@ -314,16 +260,9 @@
         type="number"
         id="TLDel90Cnt24"
         name="TLDel90Cnt24"
-        value="-999"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="TLDel60CntAll"
         >Number of Accounts with 60+ Day Delinquencies (All Time)
@@ -333,23 +272,17 @@
         type="number"
         id="TLDel60CntAll"
         name="TLDel60CntAll"
-        value="-50"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="1"
+        required
+      /><br /><br />
 
       <label for="TLOpenPct">Percentage of Open Accounts (TLOpenPct):</label>
       <input
         type="number"
         id="TLOpenPct"
         name="TLOpenPct"
-        value="0"
+        value="0.62"
+        step="0.01"
         required
       /><br /><br />
 
@@ -360,16 +293,9 @@
         type="number"
         id="TLBadDerogCnt"
         name="TLBadDerogCnt"
-        value="-1"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="0"
+        required
+      /><br /><br />
 
       <label for="TLDel60Cnt24"
         >Number of Accounts with 60+ Day Delinquencies in Last 24 Months
@@ -379,16 +305,9 @@
         type="number"
         id="TLDel60Cnt24"
         name="TLDel60Cnt24"
-        value="100000"
-        <!--
-        Invalid
-        value
-        to
-        test
-        rejection
-        --
-      />
-      required /><br /><br />
+        value="1"
+        required
+      /><br /><br />
 
       <label for="TLOpen24Pct"
         >Percentage of Open Accounts in the Last 24 Months (TLOpen24Pct):</label
@@ -397,7 +316,8 @@
         type="number"
         id="TLOpen24Pct"
         name="TLOpen24Pct"
-        value="0"
+        value="0.31"
+        step="0.01"
         required
       /><br /><br />
 

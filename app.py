@@ -9,6 +9,8 @@ from app.user_model import User
 from app.user_financial_model import UserFinancial
 from app import db
 from app.model_loan_recommendation import get_loan_recommendation
+import os
+from werkzeug.utils import secure_filename
 
 # Initialize Flask app
 app = create_app()
@@ -222,6 +224,62 @@ def predict():
         session['credit_score'] = credit_score
 
         prediction = 1 if prediction_probability > 0.5 else 0
+
+        # Save the data to Excel with correct format
+        prediction_data = {
+            'TARGET': prediction,  # Set target as prediction
+            'ID': secure_filename(str(session.get('user_id'))),  # Unique ID (user ID in this case)
+            **features
+        }
+
+        # Convert features back to their original format if needed
+        formatted_prediction_data = {
+            'TARGET': prediction,
+            'ID': secure_filename(str(session.get('user_id'))),
+            'DerogCnt': int(features['DerogCnt']),
+            'CollectCnt': int(features['CollectCnt']),
+            'BanruptcyInd': int(features['BanruptcyInd']),
+            'InqCnt06': int(features['InqCnt06']),
+            'InqTimeLast': int(features['InqTimeLast']),
+            'InqFinanceCnt24': int(features['InqFinanceCnt24']),
+            'TLTimeFirst': int(features['TLTimeFirst']),
+            'TLTimeLast': int(features['TLTimeLast']),
+            'TLCnt03': int(features['TLCnt03']),
+            'TLCnt12': int(features['TLCnt12']),
+            'TLCnt24': int(features['TLCnt24']),
+            'TLCnt': int(features['TLCnt']),
+            'TLSum': f"${features['TLSum']:,.2f}",  # Format as currency
+            'TLMaxSum': f"${features['TLMaxSum']:,.2f}",  # Format as currency
+            'TLSatCnt': int(features['TLSatCnt']),
+            'TLDel60Cnt': int(features['TLDel60Cnt']),
+            'TLBadCnt24': int(features['TLBadCnt24']),
+            'TL75UtilCnt': int(features['TL75UtilCnt']),
+            'TL50UtilCnt': int(features['TL50UtilCnt']),
+            'TLBalHCPct': f"{features['TLBalHCPct']*100:.2f}%",  # Format as percentage
+            'TLSatPct': f"{features['TLSatPct']*100:.2f}%",  # Format as percentage
+            'TLDel3060Cnt24': int(features['TLDel3060Cnt24']),
+            'TLDel90Cnt24': int(features['TLDel90Cnt24']),
+            'TLDel60CntAll': int(features['TLDel60CntAll']),
+            'TLOpenPct': f"{features['TLOpenPct']*100:.2f}%",  # Format as percentage
+            'TLBadDerogCnt': int(features['TLBadDerogCnt']),
+            'TLDel60Cnt24': int(features['TLDel60Cnt24']),
+            'TLOpen24Pct': f"{features['TLOpen24Pct']*100:.2f}%"  # Format as percentage
+        }
+
+        formatted_prediction_df = pd.DataFrame([formatted_prediction_data])
+
+        # Path to save the Excel file
+        excel_file_path = os.path.join('data', 'f4_NewApplications_CreditScore_Predictions.xlsx')
+
+        # Check if the file already exists
+        if os.path.exists(excel_file_path):
+            # Append to existing file
+            with pd.ExcelWriter(excel_file_path, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
+                formatted_prediction_df.to_excel(writer, sheet_name='Predictions', index=False, header=False, startrow=writer.sheets['Predictions'].max_row)
+        else:
+            # Create a new file
+            with pd.ExcelWriter(excel_file_path, engine='openpyxl') as writer:
+                formatted_prediction_df.to_excel(writer, sheet_name='Predictions', index=False)
 
         # Initialize loan_recommendations to be an empty list
         loan_recommendations = []

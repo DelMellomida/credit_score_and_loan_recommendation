@@ -358,6 +358,11 @@ def signup():
         username = request.form['username']
         password = request.form['password']
         confirm_password = request.form['confirm-password']
+        privacy_agreement = request.form.get('privacy-checkbox')
+
+        if not privacy_agreement:
+            flash('You must agree to the Privacy Policy and Terms of Service to sign up.')
+            return redirect(url_for('signup'))
 
         if password != confirm_password:
             flash("Passwords do not match!", 'danger')
@@ -384,6 +389,7 @@ def signup():
 def basicForm():
     if request.method == 'POST':
         user_id = session['user_id']
+        occupation = request.form['occupation']
         monthly_income = request.form['monthly_income']
         monthly_debt_payment = request.form['monthly_debt_payment']
 
@@ -391,10 +397,12 @@ def basicForm():
         if financial_info:
             financial_info.monthly_income = monthly_income
             financial_info.monthly_debt_payment = monthly_debt_payment
+            financial_info.occupation = occupation
         else:
             financial_info = UserFinancial(user_id=user_id, 
                                            monthly_income=monthly_income, 
-                                           monthly_debt_payment=monthly_debt_payment)
+                                           monthly_debt_payment=monthly_debt_payment,
+                                           occupation=occupation)
             db.session.add(financial_info)
 
         session['monthly_income'] = monthly_income

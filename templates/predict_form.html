@@ -13,6 +13,16 @@
     <div class="predict">
       <h1>Credit Scoring Prediction</h1>
       <form action="{{ url_for('predict') }}" class="predictForm" method="post">
+        <label for="DerogCnt">Type of Loan:</label>
+        <select id="loan_id" name="loan_id" required>
+          <option value="1">Personal Loan Basic</option>
+          <option value="2">Auto Loan Premium</option>
+          <option value="3">Home Loan Standard</option>
+          <option value="4">Quick Cash Advance</option>
+          <option value="5">Debt Consolidation Loan</option>
+          <option value="6">Small Business Loan</option></select
+        ><br /><br />
+
         <label for="DerogCnt">Number of Derogatory Marks (DerogCnt):</label>
         <input
           type="number"

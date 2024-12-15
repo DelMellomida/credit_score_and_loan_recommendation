@@ -4,33 +4,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Financial Information</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
   </head>
   <body>
-    <h2>Enter Your Financial Information</h2>
+    <div class="financial">
+      <h2>Enter Your Financial Information</h2>
 
-    <form action="/basic_form" method="POST">
-      <!-- Monthly Income Field -->
-      <label for="monthly_income">Monthly Income:</label>
-      <input
-        type="number"
-        id="monthly_income"
-        name="monthly_income"
-        step="0.01"
-        required
-      /><br /><br />
+      <form action="/basic_form" method="POST">
+        <!-- Monthly Income Field -->
+        <label for="monthly_income">Monthly Income:</label>
+        <input
+          type="number"
+          id="monthly_income"
+          name="monthly_income"
+          step="0.01"
+          required
+        /><br /><br />
 
-      <!-- Monthly Debt Payment Field -->
-      <label for="monthly_debt_payment">Monthly Debt Payment:</label>
-      <input
-        type="number"
-        id="monthly_debt_payment"
-        name="monthly_debt_payment"
-        step="0.01"
-        required
-      /><br /><br />
+        <!-- Monthly Debt Payment Field -->
+        <label for="monthly_debt_payment">Monthly Debt Payment:</label>
+        <input
+          type="number"
+          id="monthly_debt_payment"
+          name="monthly_debt_payment"
+          step="0.01"
+          required
+        /><br /><br />
 
-      <!-- Submit Button -->
-      <button type="submit">Submit</button>
-    </form>
+        <!-- Submit Button -->
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
   </body>
 </html>

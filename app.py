@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, class
 from app import create_app
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.user_model import User
+from app.user_financial_model import UserFinancial
 from app import db
 
 # Initialize Flask app
@@ -149,22 +150,34 @@ def compute_credit_score(features):
 
     return credit_score
 
+# Routes
 @app.route('/')
 def index():
     return render_template('index.html')
 
 @app.route('/form')
 def form():
+    if 'user_id' not in session:
+        flash("You must be logged in to access the prediction form.", 'danger')
+        return redirect(url_for('login'))
+
+    user_id = session['user_id']
+    financial_info = UserFinancial.query.filter_by(user_id=user_id).first()
+
+    if not financial_info or financial_info.monthly_income == 0 or financial_info.monthly_debt_payment == 0:
+        flash("Please fill out your financial information before accessing the prediction form.", 'warning')
+        return redirect(url_for('basicForm'))
+
     return render_template('predict_form.html') 
 
-from sklearn.preprocessing import StandardScaler, OneHotEncoder
-import numpy as np
-import pickle
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    if 'user_id' not in session:
+        flash("You must be logged in to access the dashboard.", 'danger')
+        return redirect(url_for('login'))
+
     try:
-        # Extract features from the form
         features = {
             'DerogCnt': float(request.form['DerogCnt']),
             'CollectCnt': float(request.form['CollectCnt']),
@@ -196,19 +209,15 @@ def predict():
             'TLOpen24Pct': float(request.form['TLOpen24Pct'].replace('%', '').replace(',', '')) / 100
         }
 
-        # Convert the feature dictionary to a numpy array
         input_data = np.array(list(features.values())).reshape(1, -1)
 
-        # Apply the same scaling used during training
         scaled_data = scaler.transform(input_data)
 
-        # Make prediction using the model
         prediction_probability = classifier.predict_proba(scaled_data)[0][1]
 
-        # Calculate the credit score from the probability (custom function)
         credit_score = compute_credit_score(features)
+        session['credit_score'] = credit_score
 
-        # Render the result in the template
         return render_template(
             'results.html',
             prediction=int(prediction_probability > 0.5),
@@ -219,16 +228,9 @@ def predict():
     except Exception as e:
         return f"An error occurred: {e}"
 
-
-
 @app.route('/metric')
 def metric():
     return render_template('metric.html', results=results)
-
-from flask import render_template, request, redirect, url_for, flash, session
-from app import db
-from app.user_model import User
-from werkzeug.security import check_password_hash
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -240,6 +242,17 @@ def login():
         
         if user and check_password_hash(user.password, password):
             session['user_id'] = user.id
+
+            user_financial = UserFinancial.query.filter_by(user_id=user.id).first()
+
+            if not user_financial:
+                user_financial = UserFinancial(user_id=user.id, monthly_income=0, monthly_debt_payment=0)
+                db.session.add(user_financial)
+                db.session.commit()
+
+            session['monthly_income'] = user_financial.monthly_income
+            session['monthly_debt_payment'] = user_financial.monthly_debt_payment
+
             flash("Login successful!", 'success')
             return redirect(url_for('dashboard'))
         else:
@@ -278,7 +291,29 @@ def signup():
 
     return render_template('signup.html')
 
-from flask import session, redirect, url_for, flash
+@app.route('/basic_form', methods=['GET', 'POST'])
+def basicForm():
+    if request.method == 'POST':
+        user_id = session['user_id']
+        monthly_income = request.form['monthly_income']
+        debt_payment = request.form['monthly_debt_payment']
+
+        financial_info = UserFinancial.query.filter_by(user_id=user_id).first()
+        if financial_info:
+            financial_info.monthly_income = monthly_income
+            financial_info.monthly_debt_payment = debt_payment
+        else:
+            financial_info = UserFinancial(user_id=user_id, 
+                                           monthly_income=monthly_income, 
+                                           monthly_debt_payment=debt_payment)
+            db.session.add(financial_info)
+
+        db.session.commit()
+        flash("Financial information updated successfully!", 'success')
+        return redirect(url_for('predict'))
+
+    return render_template('basic_form.html')
+
 
 @app.route('/dashboard')
 def dashboard():
@@ -286,7 +321,12 @@ def dashboard():
         flash("You must be logged in to access the dashboard.", 'danger')
         return redirect(url_for('login'))
 
-    return render_template('dashboard.html')
+    # Retrieve financial data from the session
+    monthly_income = session.get('monthly_income')
+    monthly_debt_payment = session.get('monthly_debt_payment')
+
+    return render_template('dashboard.html', monthly_income=monthly_income, monthly_debt_payment=monthly_debt_payment)
+
 
 @app.route('/logout')
 def logout():

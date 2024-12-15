@@ -310,7 +310,7 @@ def basicForm():
 
         db.session.commit()
         flash("Financial information updated successfully!", 'success')
-        return redirect(url_for('predict'))
+        return redirect(url_for('form'))
 
     return render_template('basic_form.html')
 

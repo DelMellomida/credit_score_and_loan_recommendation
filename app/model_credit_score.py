@@ -40,6 +40,8 @@ df = df.loc[:, df.isnull().sum() < column_threshold]
 print("\nFinal Missing Values:\n", df.isnull().sum())
 print("\nDataset Shape After Cleaning:", df.shape)
 
+print(df.head())
+
 # Step 4: Define target and features
 y = df['TARGET']  # Target variable
 X = df.drop(columns=['TARGET'])  # Features (excluding target)

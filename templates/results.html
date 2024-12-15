@@ -10,38 +10,40 @@
     <title>Credit Scoring Result</title>
   </head>
   <body>
-    <h1>Credit Scoring Result</h1>
+    <div class="result">
+      <h1>Credit Scoring Result</h1>
 
-    <p>
-      <strong>Prediction:</strong> {{ 'Approved' if prediction == 1 else
-      'Rejected' }}
-    </p>
-    <p><strong>Probability of Approval:</strong> {{ probability }}%</p>
-    <p><strong>Credit Score:</strong> {{ credit_score }}</p>
+      <p>
+        <strong>Prediction:</strong> {{ 'Approved' if prediction == 1 else
+        'Rejected' }}
+      </p>
+      <p><strong>Probability of Approval:</strong> {{ probability }}%</p>
+      <p><strong>Credit Score:</strong> {{ credit_score }}</p>
 
-    {% if prediction == 0 %}
-    <h2>Loan Recommendations</h2>
-    {% if loan_recommendations %}
-    <ul>
-      {% for loan in loan_recommendations %}
-      <li>
-        <strong>Loan Name:</strong> {{ loan['loan_name'] }}<br />
-        <strong>Loan Type:</strong> {{ loan['loan_name'] }}<br />
-        <strong>Max Amount:</strong> ${{ loan['min_income'] * 5 }}<br />
-        <strong>Interest Rate:</strong> {{ loan['interest_rate'] }}%<br />
-        <strong>Max Term:</strong> {{ loan['max_term'] }} months<br />
-        <strong>Notes:</strong> {{ loan['notes'] }}<br />
-        <!-- Display DTI -->
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No loan recommendations available based on the provided data.</p>
-    {% endif %} {% endif %}
+      {% if prediction == 0 %}
+      <h2>Loan Recommendations</h2>
+      {% if loan_recommendations %}
+      <ul>
+        {% for loan in loan_recommendations %}
+        <li>
+          <strong>Loan Name:</strong> {{ loan['loan_name'] }}<br />
+          <strong>Loan Type:</strong> {{ loan['loan_name'] }}<br />
+          <strong>Max Amount:</strong> ${{ loan['min_income'] * 5 }}<br />
+          <strong>Interest Rate:</strong> {{ loan['interest_rate'] }}%<br />
+          <strong>Max Term:</strong> {{ loan['max_term'] }} months<br />
+          <strong>Notes:</strong> {{ loan['notes'] }}<br />
+          <!-- Display DTI -->
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p>No loan recommendations available based on the provided data.</p>
+      {% endif %} {% endif %}
 
-    <strong>Debt-to-Income Ratio (DTI):</strong>
-    {{ dti | round(2) }}<br />
+      <strong>Debt-to-Income Ratio (DTI):</strong>
+      {{ dti | round(2) }}<br />
 
-    <a href="/dashboard">Go Back</a>
+      <a href="/dashboard">Go Back</a>
+    </div>
   </body>
 </html>

@@ -10,318 +10,321 @@
     />
   </head>
   <body>
-    <h1>Credit Scoring Prediction</h1>
-    <form action="{{ url_for('predict') }}" method="post">
-      <label for="DerogCnt">Number of Derogatory Marks (DerogCnt):</label>
-      <input
-        type="number"
-        id="DerogCnt"
-        name="DerogCnt"
-        value="0"
-        required
-      /><br /><br />
+    <div class="predict">
+      <h1>Credit Scoring Prediction</h1>
+      <form action="{{ url_for('predict') }}" class="predictForm" method="post">
+        <label for="DerogCnt">Number of Derogatory Marks (DerogCnt):</label>
+        <input
+          type="number"
+          id="DerogCnt"
+          name="DerogCnt"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="CollectCnt"
-        >Number of Collection Accounts (CollectCnt):</label
-      >
-      <input
-        type="number"
-        id="CollectCnt"
-        name="CollectCnt"
-        value="0"
-        required
-      /><br /><br />
+        <label for="CollectCnt"
+          >Number of Collection Accounts (CollectCnt):</label
+        >
+        <input
+          type="number"
+          id="CollectCnt"
+          name="CollectCnt"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="BanruptcyInd">Bankruptcy Indicator (BanruptcyInd):</label>
-      <input
-        type="number"
-        id="BanruptcyInd"
-        name="BanruptcyInd"
-        value="0"
-        required
-      /><br /><br />
+        <label for="BanruptcyInd">Bankruptcy Indicator (BanruptcyInd):</label>
+        <input
+          type="number"
+          id="BanruptcyInd"
+          name="BanruptcyInd"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="InqCnt06"
-        >Number of Credit Inquiries in the Last 6 Months (InqCnt06):</label
-      >
-      <input
-        type="number"
-        id="InqCnt06"
-        name="InqCnt06"
-        value="2"
-        required
-      /><br /><br />
+        <label for="InqCnt06"
+          >Number of Credit Inquiries in the Last 6 Months (InqCnt06):</label
+        >
+        <input
+          type="number"
+          id="InqCnt06"
+          name="InqCnt06"
+          value="2"
+          required
+        /><br /><br />
 
-      <label for="InqTimeLast"
-        >Months Since Last Credit Inquiry (InqTimeLast):</label
-      >
-      <input
-        type="number"
-        id="InqTimeLast"
-        name="InqTimeLast"
-        value="0"
-        required
-      /><br /><br />
+        <label for="InqTimeLast"
+          >Months Since Last Credit Inquiry (InqTimeLast):</label
+        >
+        <input
+          type="number"
+          id="InqTimeLast"
+          name="InqTimeLast"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="InqFinanceCnt24"
-        >Number of Financing Inquiries in the Last 24 Months
-        (InqFinanceCnt24):</label
-      >
-      <input
-        type="number"
-        id="InqFinanceCnt24"
-        name="InqFinanceCnt24"
-        value="0"
-        required
-      /><br /><br />
+        <label for="InqFinanceCnt24"
+          >Number of Financing Inquiries in the Last 24 Months
+          (InqFinanceCnt24):</label
+        >
+        <input
+          type="number"
+          id="InqFinanceCnt24"
+          name="InqFinanceCnt24"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="TLTimeFirst"
-        >Months Since First Credit Account Opened (TLTimeFirst):</label
-      >
-      <input
-        type="number"
-        id="TLTimeFirst"
-        name="TLTimeFirst"
-        value="135"
-        required
-      /><br /><br />
+        <label for="TLTimeFirst"
+          >Months Since First Credit Account Opened (TLTimeFirst):</label
+        >
+        <input
+          type="number"
+          id="TLTimeFirst"
+          name="TLTimeFirst"
+          value="135"
+          required
+        /><br /><br />
 
-      <label for="TLTimeLast"
-        >Months Since Last Credit Account Opened (TLTimeLast):</label
-      >
-      <input
-        type="number"
-        id="TLTimeLast"
-        name="TLTimeLast"
-        value="11"
-        required
-      /><br /><br />
+        <label for="TLTimeLast"
+          >Months Since Last Credit Account Opened (TLTimeLast):</label
+        >
+        <input
+          type="number"
+          id="TLTimeLast"
+          name="TLTimeLast"
+          value="11"
+          required
+        /><br /><br />
 
-      <label for="TLCnt03"
-        >Number of Accounts with 3 Delinquencies in the Last 24 Months
-        (TLCnt03):</label
-      >
-      <input
-        type="number"
-        id="TLCnt03"
-        name="TLCnt03"
-        value="0"
-        required
-      /><br /><br />
+        <label for="TLCnt03"
+          >Number of Accounts with 3 Delinquencies in the Last 24 Months
+          (TLCnt03):</label
+        >
+        <input
+          type="number"
+          id="TLCnt03"
+          name="TLCnt03"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="TLCnt12"
-        >Number of Accounts with 12 Delinquencies in the Last 12 Months
-        (TLCnt12):</label
-      >
-      <input
-        type="number"
-        id="TLCnt12"
-        name="TLCnt12"
-        value="1"
-        required
-      /><br /><br />
+        <label for="TLCnt12"
+          >Number of Accounts with 12 Delinquencies in the Last 12 Months
+          (TLCnt12):</label
+        >
+        <input
+          type="number"
+          id="TLCnt12"
+          name="TLCnt12"
+          value="1"
+          required
+        /><br /><br />
 
-      <label for="TLCnt24"
-        >Number of Accounts with 24 Delinquencies in the Last 24 Months
-        (TLCnt24):</label
-      >
-      <input
-        type="number"
-        id="TLCnt24"
-        name="TLCnt24"
-        value="4"
-        required
-      /><br /><br />
+        <label for="TLCnt24"
+          >Number of Accounts with 24 Delinquencies in the Last 24 Months
+          (TLCnt24):</label
+        >
+        <input
+          type="number"
+          id="TLCnt24"
+          name="TLCnt24"
+          value="4"
+          required
+        /><br /><br />
 
-      <label for="TLCnt">Total Number of Credit Accounts (TLCnt):</label>
-      <input
-        type="number"
-        id="TLCnt"
-        name="TLCnt"
-        value="13"
-        required
-      /><br /><br />
+        <label for="TLCnt">Total Number of Credit Accounts (TLCnt):</label>
+        <input
+          type="number"
+          id="TLCnt"
+          name="TLCnt"
+          value="13"
+          required
+        /><br /><br />
 
-      <label for="TLSum">Total Loan Sum (TLSum):</label>
-      <input
-        type="number"
-        id="TLSum"
-        name="TLSum"
-        value="59919"
-        required
-      /><br /><br />
+        <label for="TLSum">Total Loan Sum (TLSum):</label>
+        <input
+          type="number"
+          id="TLSum"
+          name="TLSum"
+          value="59919"
+          required
+        /><br /><br />
 
-      <label for="TLMaxSum">Maximum Loan Sum (TLMaxSum):</label>
-      <input
-        type="number"
-        id="TLMaxSum"
-        name="TLMaxSum"
-        value="96487"
-        required
-      /><br /><br />
+        <label for="TLMaxSum">Maximum Loan Sum (TLMaxSum):</label>
+        <input
+          type="number"
+          id="TLMaxSum"
+          name="TLMaxSum"
+          value="96487"
+          required
+        /><br /><br />
 
-      <label for="TLSatCnt"
-        >Number of Satisfied Loan Accounts (TLSatCnt):</label
-      >
-      <input
-        type="number"
-        id="TLSatCnt"
-        name="TLSatCnt"
-        value="19"
-        required
-      /><br /><br />
+        <label for="TLSatCnt"
+          >Number of Satisfied Loan Accounts (TLSatCnt):</label
+        >
+        <input
+          type="number"
+          id="TLSatCnt"
+          name="TLSatCnt"
+          value="19"
+          required
+        /><br /><br />
 
-      <label for="TLDel60Cnt"
-        >Number of Accounts with 60+ Day Delinquencies (TLDel60Cnt):</label
-      >
-      <input
-        type="number"
-        id="TLDel60Cnt"
-        name="TLDel60Cnt"
-        value="0"
-        required
-      /><br /><br />
+        <label for="TLDel60Cnt"
+          >Number of Accounts with 60+ Day Delinquencies (TLDel60Cnt):</label
+        >
+        <input
+          type="number"
+          id="TLDel60Cnt"
+          name="TLDel60Cnt"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="TLBadCnt24"
-        >Number of Accounts with Serious Delinquencies in Last 24 Months
-        (TLBadCnt24):</label
-      >
-      <input
-        type="number"
-        id="TLBadCnt24"
-        name="TLBadCnt24"
-        value="0"
-        required
-      /><br /><br />
+        <label for="TLBadCnt24"
+          >Number of Accounts with Serious Delinquencies in Last 24 Months
+          (TLBadCnt24):</label
+        >
+        <input
+          type="number"
+          id="TLBadCnt24"
+          name="TLBadCnt24"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="TL75UtilCnt"
-        >Number of Accounts with 75%+ Credit Utilization (TL75UtilCnt):</label
-      >
-      <input
-        type="number"
-        id="TL75UtilCnt"
-        name="TL75UtilCnt"
-        value="4"
-        required
-      /><br /><br />
+        <label for="TL75UtilCnt"
+          >Number of Accounts with 75%+ Credit Utilization (TL75UtilCnt):</label
+        >
+        <input
+          type="number"
+          id="TL75UtilCnt"
+          name="TL75UtilCnt"
+          value="4"
+          required
+        /><br /><br />
 
-      <label for="TL50UtilCnt"
-        >Number of Accounts with 50%+ Credit Utilization (TL50UtilCnt):</label
-      >
-      <input
-        type="number"
-        id="TL50UtilCnt"
-        name="TL50UtilCnt"
-        value="5"
-        required
-      /><br /><br />
+        <label for="TL50UtilCnt"
+          >Number of Accounts with 50%+ Credit Utilization (TL50UtilCnt):</label
+        >
+        <input
+          type="number"
+          id="TL50UtilCnt"
+          name="TL50UtilCnt"
+          value="5"
+          required
+        /><br /><br />
 
-      <label for="TLBalHCPct"
-        >Balance to High Credit Percentage (TLBalHCPct):</label
-      >
-      <input
-        type="number"
-        id="TLBalHCPct"
-        name="TLBalHCPct"
-        value="0.62"
-        step="0.01"
-        required
-      /><br /><br />
+        <label for="TLBalHCPct"
+          >Balance to High Credit Percentage (TLBalHCPct):</label
+        >
+        <input
+          type="number"
+          id="TLBalHCPct"
+          name="TLBalHCPct"
+          value="0.62"
+          step="0.01"
+          required
+        /><br /><br />
 
-      <label for="TLSatPct"
-        >Satisfaction Percentage of Loan Accounts (TLSatPct):</label
-      >
-      <input
-        type="number"
-        id="TLSatPct"
-        name="TLSatPct"
-        value="0.52"
-        step="0.01"
-        required
-      /><br /><br />
+        <label for="TLSatPct"
+          >Satisfaction Percentage of Loan Accounts (TLSatPct):</label
+        >
+        <input
+          type="number"
+          id="TLSatPct"
+          name="TLSatPct"
+          value="0.52"
+          step="0.01"
+          required
+        /><br /><br />
 
-      <label for="TLDel3060Cnt24"
-        >Number of Accounts with 30-60 Day Delinquencies in Last 24 Months
-        (TLDel3060Cnt24):</label
-      >
-      <input
-        type="number"
-        id="TLDel3060Cnt24"
-        name="TLDel3060Cnt24"
-        value="3"
-        required
-      /><br /><br />
+        <label for="TLDel3060Cnt24"
+          >Number of Accounts with 30-60 Day Delinquencies in Last 24 Months
+          (TLDel3060Cnt24):</label
+        >
+        <input
+          type="number"
+          id="TLDel3060Cnt24"
+          name="TLDel3060Cnt24"
+          value="3"
+          required
+        /><br /><br />
 
-      <label for="TLDel90Cnt24"
-        >Number of Accounts with 90+ Day Delinquencies in Last 24 Months
-        (TLDel90Cnt24):</label
-      >
-      <input
-        type="number"
-        id="TLDel90Cnt24"
-        name="TLDel90Cnt24"
-        value="0"
-        required
-      /><br /><br />
+        <label for="TLDel90Cnt24"
+          >Number of Accounts with 90+ Day Delinquencies in Last 24 Months
+          (TLDel90Cnt24):</label
+        >
+        <input
+          type="number"
+          id="TLDel90Cnt24"
+          name="TLDel90Cnt24"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="TLDel60CntAll"
-        >Number of Accounts with 60+ Day Delinquencies (All Time)
-        (TLDel60CntAll):</label
-      >
-      <input
-        type="number"
-        id="TLDel60CntAll"
-        name="TLDel60CntAll"
-        value="1"
-        required
-      /><br /><br />
+        <label for="TLDel60CntAll"
+          >Number of Accounts with 60+ Day Delinquencies (All Time)
+          (TLDel60CntAll):</label
+        >
+        <input
+          type="number"
+          id="TLDel60CntAll"
+          name="TLDel60CntAll"
+          value="1"
+          required
+        /><br /><br />
 
-      <label for="TLOpenPct">Percentage of Open Accounts (TLOpenPct):</label>
-      <input
-        type="number"
-        id="TLOpenPct"
-        name="TLOpenPct"
-        value="0.62"
-        step="0.01"
-        required
-      /><br /><br />
+        <label for="TLOpenPct">Percentage of Open Accounts (TLOpenPct):</label>
+        <input
+          type="number"
+          id="TLOpenPct"
+          name="TLOpenPct"
+          value="0.62"
+          step="0.01"
+          required
+        /><br /><br />
 
-      <label for="TLBadDerogCnt"
-        >Number of Accounts with Bad Derogatory Marks (TLBadDerogCnt):</label
-      >
-      <input
-        type="number"
-        id="TLBadDerogCnt"
-        name="TLBadDerogCnt"
-        value="0"
-        required
-      /><br /><br />
+        <label for="TLBadDerogCnt"
+          >Number of Accounts with Bad Derogatory Marks (TLBadDerogCnt):</label
+        >
+        <input
+          type="number"
+          id="TLBadDerogCnt"
+          name="TLBadDerogCnt"
+          value="0"
+          required
+        /><br /><br />
 
-      <label for="TLDel60Cnt24"
-        >Number of Accounts with 60+ Day Delinquencies in Last 24 Months
-        (TLDel60Cnt24):</label
-      >
-      <input
-        type="number"
-        id="TLDel60Cnt24"
-        name="TLDel60Cnt24"
-        value="1"
-        required
-      /><br /><br />
+        <label for="TLDel60Cnt24"
+          >Number of Accounts with 60+ Day Delinquencies in Last 24 Months
+          (TLDel60Cnt24):</label
+        >
+        <input
+          type="number"
+          id="TLDel60Cnt24"
+          name="TLDel60Cnt24"
+          value="1"
+          required
+        /><br /><br />
 
-      <label for="TLOpen24Pct"
-        >Percentage of Open Accounts in the Last 24 Months (TLOpen24Pct):</label
-      >
-      <input
-        type="number"
-        id="TLOpen24Pct"
-        name="TLOpen24Pct"
-        value="0.31"
-        step="0.01"
-        required
-      /><br /><br />
+        <label for="TLOpen24Pct"
+          >Percentage of Open Accounts in the Last 24 Months
+          (TLOpen24Pct):</label
+        >
+        <input
+          type="number"
+          id="TLOpen24Pct"
+          name="TLOpen24Pct"
+          value="0.31"
+          step="0.01"
+          required
+        /><br /><br />
 
-      <input type="submit" value="Submit" />
-    </form>
+        <input type="submit" value="Submit" />
+      </form>
+    </div>
   </body>
 </html>

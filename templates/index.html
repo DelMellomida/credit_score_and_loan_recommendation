@@ -10,15 +10,17 @@
     />
   </head>
   <body>
-    <h1>Welcome to the Credit Scoring Model</h1>
-    <p>
-      This is the home page. To see the model metrics, click the link below.
-    </p>
-    <a href="{{ url_for('metric') }}">View Model Metrics</a>
+    <div class="index">
+      <h1>Welcome to the Credit Scoring Model</h1>
+      <p>
+        This is the home page. To see the model metrics, click the link below.
+      </p>
+      <a href="{{ url_for('metric') }}">View Model Metrics</a>
 
-    <div class="container">
-      <a href="{{ url_for('login') }}">Login</a>
-      <a href="{{ url_for('signup') }}">Signup</a>
+      <div class="container">
+        <a href="{{ url_for('login') }}">Login</a>
+        <a href="{{ url_for('signup') }}">Signup</a>
+      </div>
     </div>
   </body>
 </html>

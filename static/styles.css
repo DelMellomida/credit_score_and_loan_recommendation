@@ -1,51 +1,416 @@
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body styling */
 body {
-  font-family: Arial, sans-serif;
-  margin: 30px;
-  padding: 20px;
+  font-family: "Arial", sans-serif;
   background-color: #f4f4f4;
-}
-
-h1 {
-  text-align: center;
   color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
 }
 
+/* Login form container */
+.login-form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Form title */
 h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+/* Form elements styling */
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 8px;
   color: #555;
 }
 
-.section {
-  margin-bottom: 30px;
-}
-
-table {
+/* Input fields */
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="text"] {
   width: 100%;
-  margin: 20px 0;
-  border-collapse: collapse;
-}
-
-table,
-th,
-td {
+  padding: 12px;
+  font-size: 1em;
   border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
-th,
-td {
-  padding: 10px;
-  text-align: center;
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus {
+  border-color: #3498db;
+  outline: none;
 }
 
-a {
-  display: block;
-  text-align: center;
-  margin-top: 20px;
-  padding: 10px;
-}
-
-.container {
+.index {
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+}
+
+.index a {
+  padding: 10px;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Center items vertically */
+  padding: 40px;
+  min-height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.dashboard h1 {
+  font-size: 2.5em;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.dashboard p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.dashboard-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Spacing between the buttons */
+}
+
+.dashboard-btn {
+  display: inline-block;
+  padding: 15px 30px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2em;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.dashboard-btn:hover {
+  background-color: #2980b9;
+  transform: translateY(-2px);
+}
+
+.dashboard-btn:active {
+  transform: translateY(2px);
+}
+
+.logout-btn {
+  background-color: #e74c3c;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+
+.dashboard-btn:focus {
+  outline: none;
+}
+
+.predict {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align to the top */
+  align-items: center;
+  height: 100%; /* Ensure it stretches vertically */
+  padding-top: 10px; /* Add some top padding to avoid elements sticking to the top */
+}
+
+.result {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align to the top */
+  align-items: center;
+  padding: 20px; /* Add some padding around the container */
+  max-width: 900px; /* Max width to make sure content doesn't stretch too wide */
+  width: 100%;
+  margin: 0 auto; /* Center the container horizontally */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+.result p {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.result strong {
+  font-weight: bold;
+}
+
+.result ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 20px;
+}
+
+.result li {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.result a {
+  margin-top: 20px;
+  font-size: 1.1em;
+  color: #3498db;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.result a:hover {
+  color: #2980b9;
+}
+
+.result ul li strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.metric .section {
+  padding: 10px;
+  text-align: center;
+}
+
+/* Button styling */
+button.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #2980b9;
+}
+
+/* Forgot password link */
+a.forgot-password {
+  display: block;
+  margin-top: 10px;
+  color: #3498db;
+  text-decoration: none;
+  font-size: 1em;
+}
+
+a.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* Dashboard styling */
+.container {
+  text-align: center;
+}
+
+.container a {
+  display: inline-block;
+  margin: 15px;
+  padding: 12px 20px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2em;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.container a:hover {
+  background-color: #2980b9;
+}
+
+/* Form container for Credit Scoring Prediction */
+form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 900px;
+  text-align: left;
+}
+
+/* Heading */
+h1 {
+  font-size: 2.5em;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  text-align: center;
+}
+
+/* Form elements styling */
+label {
+  display: block;
+  font-size: 1.1em;
+  margin-bottom: 8px;
+  color: #555;
+}
+
+/* Input fields for Credit Scoring Prediction */
+input[type="number"] {
+  width: 100%;
+  padding: 12px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+/* Submit button for Credit Scoring Prediction */
+input[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+input[type="submit"]:active {
+  background-color: #1f75a4;
+}
+
+/* Spacing between form fields */
+form br {
+  margin-bottom: 10px;
+}
+
+/* Fix spacing and alignment for form */
+form label,
+form input {
+  width: 100%;
+}
+
+/* Form fields margin to create space */
+form input[type="number"] {
+  margin-bottom: 20px;
+}
+
+/* Margin for the first input field */
+form input[type="number"]:first-of-type {
+  margin-top: 10px;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  /* Login Form */
+  .login-form {
+    padding: 20px;
+    width: 90%;
+  }
+
+  h2 {
+    font-size: 1.8em;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    padding: 10px;
+  }
+
+  button.btn {
+    font-size: 1.1em;
+  }
+
+  /* Dashboard */
+  .container {
+    padding: 20px;
+  }
+
+  .container a {
+    font-size: 1em;
+    padding: 10px 15px;
+  }
+
+  /* Credit Scoring Prediction Form */
+  form {
+    padding: 20px;
+    width: 90%;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  input[type="number"] {
+    padding: 10px;
+  }
+
+  input[type="submit"] {
+    font-size: 1.1em;
+  }
 }

@@ -10,44 +10,46 @@
     />
   </head>
   <body>
-    <h1>Credit Scoring Model Metrics</h1>
+    <div class="metric">
+      <h1>Credit Scoring Model Metrics</h1>
 
-    <div class="section">
-      <h2>Model Performance Metrics</h2>
-      <p><strong>Accuracy:</strong> {{ results['accuracy'] }}</p>
-      <p><strong>Precision (Weighted):</strong> {{ results['precision'] }}</p>
-      <p><strong>Recall (Weighted):</strong> {{ results['recall'] }}</p>
-    </div>
+      <div class="section">
+        <h2>Model Performance Metrics</h2>
+        <p><strong>Accuracy:</strong> {{ results['accuracy'] }}</p>
+        <p><strong>Precision (Weighted):</strong> {{ results['precision'] }}</p>
+        <p><strong>Recall (Weighted):</strong> {{ results['recall'] }}</p>
+      </div>
 
-    <div class="section">
-      <h2>Confusion Matrix</h2>
-      <table>
-        <tr>
-          <th>True Positive</th>
-          <th>False Positive</th>
-        </tr>
-        <tr>
-          <td>{{ results['conf_matrix'][0][0] }}</td>
-          <td>{{ results['conf_matrix'][0][1] }}</td>
-        </tr>
-        <tr>
-          <th>False Negative</th>
-          <th>True Negative</th>
-        </tr>
-        <tr>
-          <td>{{ results['conf_matrix'][1][0] }}</td>
-          <td>{{ results['conf_matrix'][1][1] }}</td>
-        </tr>
-      </table>
-    </div>
+      <div class="section">
+        <h2>Confusion Matrix</h2>
+        <table>
+          <tr>
+            <th>True Positive</th>
+            <th>False Positive</th>
+          </tr>
+          <tr>
+            <td>{{ results['conf_matrix'][0][0] }}</td>
+            <td>{{ results['conf_matrix'][0][1] }}</td>
+          </tr>
+          <tr>
+            <th>False Negative</th>
+            <th>True Negative</th>
+          </tr>
+          <tr>
+            <td>{{ results['conf_matrix'][1][0] }}</td>
+            <td>{{ results['conf_matrix'][1][1] }}</td>
+          </tr>
+        </table>
+      </div>
 
-    <div class="section">
-      <h2>Classification Report</h2>
-      <pre>{{ results['class_report'] }}</pre>
-    </div>
+      <div class="section">
+        <h2>Classification Report</h2>
+        <pre>{{ results['class_report'] }}</pre>
+      </div>
 
-    <div>
-      <a href="{{ url_for('dashboard') }}">Back to Home</a>
+      <div>
+        <a href="{{ url_for('dashboard') }}">Back to Home</a>
+      </div>
     </div>
   </body>
 </html>
